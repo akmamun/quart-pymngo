@@ -17,7 +17,7 @@ class Database(object):
     async def find(self,criteria ,collection_name,projection=None, limit=0, sort=None, cursor=False): 
         if "_id"  in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
-        found = self.db[collection_name].find(filter=criteria, projection=projection, limit=limit, sort=sort)    
+        found = await self.db[collection_name].find(filter=criteria, projection=projection, limit=limit, sort=sort)    
        
         if cursor:
             return found
@@ -29,7 +29,25 @@ class Database(object):
                 found[i]["_id"] = str(found[i]["_id"])
 
         return found
+   async def find_by_id(self, id, collection_name):
+        found = await self.db[collection_name].find_one({"_id": ObjectId(id)})
+        if found is None:
+            return not found
 
+        elif "_id" in found:
+            found["_id"] = str(found["_id"])
+
+        return found
+
+    async def update(self, id, element, collection_name):
+        criteria = {"_id": ObjectId(id)}
+
+        element["updated"] = datetime.now()
+        set_obj = {"$set": element}  # update value
+
+        updated = await self.db[collection_name].update_one(criteria, set_obj)
+        if updated.matched_count == 1:
+            return "Record Successfully Updated"
     async def delete(self, id, collection_name):
         deleted = await self.db[collection_name].delete_one({"_id": ObjectId(id)})
         return bool(deleted.deleted_count)
