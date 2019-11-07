@@ -1,4 +1,5 @@
 Quart
 motor
-
+quart-openapi
+quart-cors
 
