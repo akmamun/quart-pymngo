@@ -1,6 +1,5 @@
 from datetime import datetime
 
-
 class Validator(object):
     def validate_type(self, element, desired_type):
         if desired_type == "int":
@@ -14,7 +13,7 @@ class Validator(object):
         if type(desired_type) == list:
             return (element in desired_type)
         raise ValueError("Invalid value for desired type")
-     def validateTypes(self, element, fields):
+            def validateTypes(self, element, fields):
         for field in fields:
             if field in element:
                 if not self.validate_type(element[field], fields[field]):
