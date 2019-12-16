@@ -13,7 +13,8 @@ class Validator(object):
         if type(desired_type) == list:
             return (element in desired_type)
         raise ValueError("Invalid value for desired type")
-            def validateTypes(self, element, fields):
+
+    def validateTypes(self, element, fields):
         for field in fields:
             if field in element:
                 if not self.validate_type(element[field], fields[field]):
@@ -24,10 +25,9 @@ class Validator(object):
         if not self.validateTypes(element, fields):
             raise ValueError("Invalid type of field")
 
-        element_fields  = set(element.keys())
+        element_fields = set(element.keys())
         required_fields = set(required_fields)
         optional_fields = set(optional_fields)
-
 
         if len(required_fields - element_fields) > 0:
             raise ValueError("Required field missing")
