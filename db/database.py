@@ -13,8 +13,9 @@ class Database(object):
         element["created"] = datetime.now()
         element["updated"] = datetime.now()
         # insert data to db
-        inserted = await self.db[collection_name].insert_one(element)
-        return str(inserted.inserted_id)
+        res = await self.db[collection_name].insert_one(element)
+        success = bool(res.acknowledged)
+        return success
 
     async def find(self, criteria, collection_name, projection=None, limit=0, sort=None, cursor=False):
         if "_id" in criteria:
