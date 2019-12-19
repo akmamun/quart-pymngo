@@ -29,8 +29,7 @@ class Todo(object):
     async def create(self, todo):
         # Validator will throw error if invalid
         self.validator.validate(todo, self.fields, self.create_required_fields, self.create_optional_fields)
-        res = await self.db.insert(todo, self.collection_name)
-        return "Inserted Id " + res
+        return await self.db.insert(todo, self.collection_name)
 
     def find(self, todo):  # find all
         return self.db.find(todo, self.collection_name)
