@@ -31,8 +31,8 @@ class Todo(object):
         self.validator.validate(todo, self.fields, self.create_required_fields, self.create_optional_fields)
         return await self.db.insert(todo, self.collection_name)
 
-    def find(self, todo):  # find all
-        return self.db.find(todo, self.collection_name)
+    async def find(self, todo):  # find all
+        return await self.db.find(todo, self.collection_name)
 
     def find_by_id(self, id):
         return self.db.find_by_id(id, self.collection_name)

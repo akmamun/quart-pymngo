@@ -10,3 +10,9 @@ async def add_todo():
     body = req['body']
     await todos.create({'title': title, 'body': body})
     return jsonify(dict(message = 'Successfully Created.'), 201) 
+
+
+async def delete(id):
+    req = await request.json
+    await todos.delete(id)
+    return jsonify(dict(message = 'Successfully Deleted.'), 204) 
