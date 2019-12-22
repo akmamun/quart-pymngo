@@ -20,12 +20,13 @@ class Database(object):
     async def find(self, criteria, collection_name, projection=None, limit=0, sort=None, cursor=False):
         if "_id" in criteria:
             criteria["_id"] = ObjectId(criteria["_id"])
-        found = await self.db[collection_name].find(filter=criteria, projection=projection, limit=limit, sort=sort)
 
+        found = self.db[collection_name].find(
+            filter=criteria, projection=projection, limit=limit, sort=sort)
         if cursor:
             return found
 
-        found = list(found)
+        found = await found.to_list(10000)  # length required
 
         for i in range(len(found)):  # to serialize object id need to convert string
             if "_id" in found[i]:
