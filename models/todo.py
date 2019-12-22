@@ -21,14 +21,15 @@ class Todo(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields =["title", "body"]
+        self.update_required_fields = ["title", "body"]
 
         # Fields optional for UPDATE
         self.update_optional_fields = []
 
     async def create(self, todo):
         # Validator will throw error if invalid
-        self.validator.validate(todo, self.fields, self.create_required_fields, self.create_optional_fields)
+        self.validator.validate(
+            todo, self.fields, self.create_required_fields, self.create_optional_fields)
         return await self.db.insert(todo, self.collection_name)
 
     async def find(self, todo):  # find all

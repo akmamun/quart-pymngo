@@ -10,8 +10,8 @@ class Database(object):
         self.db = self.client[config["db"]["name"]]
 
     async def insert(self, element, collection_name):
-        element["created"] = datetime.now()
-        element["updated"] = datetime.now()
+        element["created_at"] = datetime.now()
+        element["updated_at"] = datetime.now()
         # insert data to db
         res = await self.db[collection_name].insert_one(element)
         success = bool(res.acknowledged)

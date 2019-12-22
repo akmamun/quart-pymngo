@@ -16,11 +16,12 @@ async def add_todo():
     await todos.create({'title': title, 'body': body})
     return jsonify(dict(message='Successfully Created.'), 201)
 
+
 async def update_todo(id):
     req = await request.json
     title = req['title']
     body = req['body']
-    await todos.update(id,{'title': title, 'body': body})
+    await todos.update(id, {'title': title, 'body': body})
     return jsonify(dict(message='Updated Created.'), 202)
 
 
