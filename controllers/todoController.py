@@ -21,7 +21,7 @@ async def update_todo(id):
     title = req['title']
     body = req['body']
     await todos.update(id,{'title': title, 'body': body})
-    return jsonify(dict(message='Updated Created.'), 201)
+    return jsonify(dict(message='Updated Created.'), 202)
 
 
 async def get_one(id):
