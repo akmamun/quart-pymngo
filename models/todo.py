@@ -21,7 +21,7 @@ class Todo(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = []
+        self.update_required_fields =["title", "body"]
 
         # Fields optional for UPDATE
         self.update_optional_fields = []
@@ -34,8 +34,8 @@ class Todo(object):
     async def find(self, todo):  # find all
         return await self.db.find(todo, self.collection_name)
 
-    def find_by_id(self, id):
-        return self.db.find_by_id(id, self.collection_name)
+    async def find_by_id(self, id):
+        return await self.db.find_by_id(id, self.collection_name)
 
     def update(self, id, todo):
         self.validator.validate(
